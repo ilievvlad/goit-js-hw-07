@@ -29,11 +29,16 @@ function onGalleryClick(e) {
 	const instance = basicLightbox.create(`<img src="${srcValue}" alt="${altValue}" width="800" height="600">`);
 	instance.show();
 
-	document.addEventListener("keydown", e => {
+	if (instance.show() === true) {
+		document.addEventListener("keydown", onEskape);
+	}
+
+	function onEskape(e) {
 		if (e.code === "Escape") {
 			instance.close();
+			document.removeEventListener("keydown", onEskape);
 		}
-	});
+	}
 }
 
 console.log(galleryItems);
